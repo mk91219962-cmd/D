@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL_HACK // EXTREME_SECURITY</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: #000000;
+            color: #00ff66;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            overflow-x: hidden;
+        }
+
+        .terminal {
+            width: 100%;
+            max-width: 450px;
+            background: #000;
+            border: 1px solid #00ff66;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.15);
+        }
+
+        .code-stream {
+            font-size: 11px;
+            color: #00aa44;
+            line-height: 1.3;
+            max-height: 220px;
+            overflow: hidden;
+            word-break: break-all;
+            margin-bottom: 15px;
+        }
+
+        .hack-alert {
+            display: none;
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #ff0055;
+            background: rgba(255, 0, 85, 0.1);
+            color: #ff0055;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.4);
+            animation: pulse 0.8s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(0.98); opacity: 0.8; }
+            to { transform: scale(1.02); opacity: 1; }
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            display: none;
+            margin-top: 15px;
+            border-top: 1px dashed #00ff66;
+            padding-top: 15px;
+        }
+
+        .quiz-title {
+            color: #ffff00;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .riddle {
+            color: #ffffff;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            background: #051505;
+            border: 1px solid #00ff66;
+            color: #00ff66;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 14px;
+            border-radius: 4px;
+            outline: none;
+            text-align: center;
+        }
+
+        input[type="text"]:focus {
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+        }
+
+        button {
+            background: #00ff66;
+            color: #000;
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+
+        button:active {
+            background: #00cc55;
+        }
+
+        .error-msg {
+            color: #ff0055;
+            font-size: 13px;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+            font-weight: bold;
+            animation: shake 0.3s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+
+        .success-screen {
+            display: none;
+            text-align: center;
+            color: #ff69b4;
+            padding: 20px 0;
+        }
+
+        .success-screen h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #ff69b4;
+        }
+
+        .success-screen p {
+            color: #fff;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="terminal">
+        <!-- Terminal Stream -->
+        <div class="code-stream" id="stream"></div>
+
+        <!-- Hack Alert -->
+        <div class="hack-alert" id="hackAlert">
+            ⚠️ SYSTEM OVERRIDE ⚠️<br>
+            [ تم اختراق قلبك بنجاح! ❤️ ]
+        </div>
+
+        <!-- Riddles Section -->
+        <div class="quiz-section" id="quizSection">
+            <div class="quiz-title" id="quizProgress">[ الشفرة الأمنية: 1 / 3 ]</div>
+            <div class="riddle" id="riddleText">...</div>
+            
+            <div class="input-group">
+                <input type="text" id="answerInput" placeholder="اكتبي الإجابة هنا..." autocomplete="off">
+                <button onclick="checkAnswer()">فك التشفير 🔓</button>
+            </div>
+            <div class="error-msg" id="errorMsg">❌ إجابة خاطئة! التشفير مرفوض، حاولي تاني..</div>
+        </div>
+
+        <!-- Final Screen -->
+        <div class="success-screen" id="successScreen">
+            <h2>SYSTEM UNLOCKED! 🎉</h2>
+            <p>عبقرية بجد وتعدي أعتى التشفيرات! <br> كفاية فوازير ودروس بقى، يارب باقي يومك يكون رايق وجميل زيك ✨🌸</p>
+        </div>
+    </div>
+
+    <script>
+        const rawCode = [
+            "0x7FFF89A2: ALLOC_MEM_CHUNK 2048KB...",
+            "CONNECTING TO HOST 192.168.1.105:8080...",
+            "BYPASSING LESSON_STRESS_WALL...",
+            "INJECTING_PAYLOAD: [PURE_ROOQAN_V2.DLL]...",
+            "EXTRACTING BRAIN_DATA... DONE.",
+            "DECRYPTING HEART_KEY... 0%",
+            "DECRYPTING HEART_KEY... 42%",
+            "DECRYPTING HEART_KEY... 88%",
+            "DECRYPTING HEART_KEY... 100%",
+            "ANALYZING TARGET: EXHAUSTED_STUDENT",
+            "OVERRIDING COGNITIVE_LOAD...",
+            "INITIALIZING HARDCORE PUZZLE ENGINE...",
+            "TARGET ACQUIRED SUCCESSFULLY."
+        ];
+
+        let lineIdx = 0;
+        const stream = document.getElementById("stream");
+
+        function runTerminal() {
+            if (lineIdx < rawCode.length) {
+                let p = document.createElement("div");
+                p.textContent = "> " + rawCode[lineIdx] + " " + Math.random().toString(36).substring(2, 7);
+                stream.appendChild(p);
+                stream.scrollTop = stream.scrollHeight;
+                lineIdx++;
+                setTimeout(runTerminal, 200);
+            } else {
+                setTimeout(showHack, 400);
+            }
+        }
+
+        function showHack() {
+            document.getElementById("hackAlert").style.display = "block";
+            setTimeout(startQuiz, 1200);
+        }
+
+        // Hardcore Riddles
+        const riddles = [
+            {
+                q: "1- لغز منطقي: إذا كان أخي أحمد لديه من الأخوات نفس عدد الإخوة، ولكن أختي فاطمة لديها عدد إخوة ضعف عدد أخواتها.. فكم عدد الأبناء في هذه العائلة؟ (اكتبي الرقم فقط)",
+                a: ["7", "سبعة", "سبع"]
+            },
+            {
+                q: "2- لغز التشفير: شيء يمتلكه الجميع، لكن لا يمكنك لمسه ولا رؤيته، لو عطيته لحد مش هتعرف تاخده تاني، ولو كسرته من غير ما تلمسه مش هتقدر تصلحه؟",
+                a: ["الوعد", "وعد", "العهد", "عهد"]
+            },
+            {
+                q: "3- لغز ذكاء: عمارة من 5 أدوار.. الأول اسمه يناير، الثاني فبراير، الثالث مارس، الرابع أبريل.. فماذا يكون اسم الدور الخامس؟",
+                a: ["مايو", "شهر مايو", "اسم الدور الخامس مايو"]
+            }
+        ];
+
+        let currentRiddle = 0;
+
+        function startQuiz() {
+            document.getElementById("quizSection").style.display = "block";
+            loadRiddle();
+        }
+
+        function loadRiddle() {
+            document.getElementById("quizProgress").innerText = `[ الشفرة الأمنية: ${currentRiddle + 1} / ${riddles.length} ]`;
+            document.getElementById("riddleText").innerText = riddles[currentRiddle].q;
+            document.getElementById("answerInput").value = "";
+            document.getElementById("errorMsg").style.display = "none";
+        }
+
+        function checkAnswer() {
+            const userAns = document.getElementById("answerInput").value.trim().toLowerCase();
+            const validAns = riddles[currentRiddle].a;
+
+            let isCorrect = validAns.some(ans => userAns.includes(ans.toLowerCase()));
+
+            if (isCorrect && userAns !== "") {
+                currentRiddle++;
+                if (currentRiddle < riddles.length) {
+                    loadRiddle();
+                } else {
+                    document.getElementById("quizSection").style.display = "none";
+                    document.getElementById("hackAlert").style.display = "none";
+                    document.getElementById("stream").style.display = "none";
+                    document.getElementById("successScreen").style.display = "block";
+                }
+            } else {
+                const errorEl = document.getElementById("errorMsg");
+                errorEl.style.display = "block";
+                errorEl.style.animation = 'none';
+                errorEl.offsetHeight;
+                errorEl.style.animation = null; 
+            }
+        }
+
+        document.getElementById("answerInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkAnswer();
+            }
+        });
+
+        runTerminal();
+    </script>
+</body>
+</html>
